@@ -12,10 +12,10 @@ const initialState: State = {
 }
 
 // 2° paso: crear un reducer, este recive un state y un action
-// un reducer siempre tiene que devolver un nuevo estado
 function reducer(state: State, action: Action) {
   const { type } = action;
   if (type === 'INTERCHANGE_LANGUAGES') {
+    // un reducer siempre tiene que devolver un nuevo estado
     return {
       ...state,
       fromLanguage: state.toLanguage,
@@ -67,7 +67,7 @@ function App() {
     loading */
   }, dispatch] = useReducer(reducer, initialState)
 
-  {console.log(fromLanguage)}
+  { console.log(fromLanguage) }
   return (
     <>
       <div className='App'>
@@ -75,7 +75,7 @@ function App() {
         <button onClick={() => {
           dispatch({ type: 'SET_FROM_LANGUAGES', payload: 'es' })
         }}>Cambiar a español</button>
-        
+
         {fromLanguage}
       </div>
     </>
