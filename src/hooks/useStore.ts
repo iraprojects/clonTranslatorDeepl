@@ -1,5 +1,6 @@
 import { useReducer } from 'react';
 import { Action, FromLanguage, Language, State } from '../types'
+import { AUTO_LANGUAGE } from '../constants';
 // 1° paso: crear stado inicial
 const initialState: State = {
   fromLanguage: 'auto',
@@ -13,6 +14,10 @@ const initialState: State = {
 function reducer(state: State, action: Action) {
   const { type } = action;
   if (type === 'INTERCHANGE_LANGUAGES') {
+
+    // lógica del estado dentro del reducer, es util porque lo evitamos en los componentes
+    if (state.fromLanguage === AUTO_LANGUAGE) return state
+
     // un reducer siempre tiene que devolver un nuevo estado
     return {
       ...state,
@@ -31,7 +36,7 @@ function reducer(state: State, action: Action) {
   if (type === 'SET_TO_LANGUAGE') {
     return {
       ...state,
-      toLanguages: action.payload
+      toLanguage: action.payload
     }
   }
 
