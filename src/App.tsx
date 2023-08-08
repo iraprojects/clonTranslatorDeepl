@@ -6,6 +6,7 @@ import { AUTO_LANGUAGE } from './constants';
 import ArrorIcon from './assets/Icons'
 import Head from './components/Head'
 import LanguageSelector from './components/LanguageSelector'
+import { SectionType } from './types.d'
 
 function App() {
   // 3° paso: usar el hook reducer
@@ -20,7 +21,7 @@ function App() {
           <Col>
             <h2>From</h2>
             <LanguageSelector
-              type='from'
+              type={SectionType.From}
               value={fromLanguage}
               onChange={setFromLanguages}
             />
@@ -33,7 +34,7 @@ function App() {
           <Col>
             <h2>To</h2>
             <LanguageSelector
-              type='to'
+              type={SectionType.To}
               value={toLanguage}
               onChange={setToLanguages} />
               {toLanguage}
