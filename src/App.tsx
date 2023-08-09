@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Container, Row, Col} from 'react-bootstrap';
 import { useStore } from './hooks/useStore'
 import { AUTO_LANGUAGE } from './constants';
-import ArrorIcon from './assets/Icons'
+import ArrowIcon from './assets/Icons'
 import Head from './components/Head'
 import LanguageSelector from './components/LanguageSelector'
 import { SectionType } from './types.d'
@@ -34,7 +34,7 @@ function App() {
             />
           </Col>
           <Col xs='auto'>
-            <Button variant='link' disabled={fromLanguage === AUTO_LANGUAGE} type="button" onClick={interChangeLanguages}> <ArrorIcon />
+            <Button variant='link' disabled={fromLanguage === AUTO_LANGUAGE} type="button" onClick={interChangeLanguages}> <ArrowIcon />
             </Button>
           </Col>
           <Col>
