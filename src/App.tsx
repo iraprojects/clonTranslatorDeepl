@@ -1,6 +1,6 @@
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Container, Row, Col, Form } from 'react-bootstrap';
+import { Button, Container, Row, Col} from 'react-bootstrap';
 import { useStore } from './hooks/useStore'
 import { AUTO_LANGUAGE } from './constants';
 import ArrorIcon from './assets/Icons'
