@@ -1,16 +1,17 @@
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Container, Row, Col } from 'react-bootstrap';
+import { Button, Container, Row, Col, Form } from 'react-bootstrap';
 import { useStore } from './hooks/useStore'
 import { AUTO_LANGUAGE } from './constants';
 import ArrorIcon from './assets/Icons'
 import Head from './components/Head'
 import LanguageSelector from './components/LanguageSelector'
 import { SectionType } from './types.d'
+import TextArea from './components/TextArea';
 
 function App() {
   // 3° paso: usar el hook reducer
-  const { fromLanguage, toLanguage, interChangeLanguages, setFromLanguages, setToLanguages } = useStore()
+  const { loading, fromLanguage, toLanguage, interChangeLanguages, setFromLanguages, setFromText, setResult, fromText, result, setToLanguages } = useStore()
   // Nunca meter acá la lógica
   return (
     <>
@@ -25,9 +26,14 @@ function App() {
               value={fromLanguage}
               onChange={setFromLanguages}
             />
-            {fromLanguage}
+            <TextArea
+              placeholder='Introducir texto'
+              type={SectionType.From}
+              value={fromText}
+              onChange={setFromText}
+            />
           </Col>
-          <Col>
+          <Col xs='auto'>
             <Button variant='link' disabled={fromLanguage === AUTO_LANGUAGE} type="button" onClick={interChangeLanguages}> <ArrorIcon />
             </Button>
           </Col>
@@ -36,8 +42,15 @@ function App() {
             <LanguageSelector
               type={SectionType.To}
               value={toLanguage}
-              onChange={setToLanguages} />
-              {toLanguage}
+              onChange={setToLanguages}
+            />
+            <TextArea
+              placeholder='Traducción'
+              type={SectionType.To}
+              value={result}
+              loading={loading}
+              onChange={setResult}
+            />
           </Col>
         </Row>
       </Container>
