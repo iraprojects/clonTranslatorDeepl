@@ -1,6 +1,6 @@
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Container, Row, Col} from 'react-bootstrap';
+import { Button, Container, Row, Col } from 'react-bootstrap';
 import { useStore } from './hooks/useStore'
 import { AUTO_LANGUAGE } from './constants';
 import ArrowIcon from './assets/Icons'
@@ -10,9 +10,29 @@ import { SectionType } from './types.d'
 import TextArea from './components/TextArea';
 
 function App() {
-  // 3° paso: usar el hook reducer
   const { loading, fromLanguage, toLanguage, interChangeLanguages, setFromLanguages, setFromText, setResult, fromText, result, setToLanguages } = useStore()
-  // Nunca meter acá la lógica
+
+  const translateText = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/translate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          text: fromText,
+          targetLang: toLanguage,
+        }),
+      });
+
+      const data = await response.json();
+      
+      setResult(data.translation);
+    } catch (error) {
+      console.error('Translation error:', error);
+    }
+  };
+
   return (
     <>
       <Head />
@@ -52,6 +72,10 @@ function App() {
               onChange={setResult}
             />
           </Col>
+          <Col xs='auto'>
+            <Button variant='primary' onClick={translateText}>Translate</Button>
+          </Col>
+          <Col></Col>
         </Row>
       </Container>
     </>
