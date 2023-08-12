@@ -10,7 +10,7 @@ interface Props {
   value: string
 }
 
-const commonStyles = { border: 0, height: '200px', resize: 'none' as 'none' }
+const commonStyles = { border: 0, height: '100px', resize: 'none' as 'none' }
 
 const getPlaceHolder = ({type, loading}: {type: SectionType, loading?: boolean}) => {
   if (type === SectionType.From) return 'Introducir texto'
@@ -21,7 +21,7 @@ const getPlaceHolder = ({type, loading}: {type: SectionType, loading?: boolean})
 function TextArea({ type, loading, onChange, value }: Props) {
   const styles = type === SectionType.From
     ? commonStyles
-    : { ...commonStyles, backgroundColor: '#f5f5f5' }
+    : { ...commonStyles, backgroundColor: '#f1f3f9' }
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     onChange(event.target.value)
