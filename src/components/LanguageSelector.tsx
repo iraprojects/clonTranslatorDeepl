@@ -9,12 +9,12 @@ type Props =
 
 function LanguageSelector({ onChange, type, value }: Props) {
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    onChange(event.target.value as Language) // el string tratarlo como un lenguaje
+    onChange(event.target.value as Language)
   }
   
   return (
-    <Form.Select aria-label="Selecciona el idioma" onChange={handleChange} value={value}>
-      { type === SectionType.From && <option value={AUTO_LANGUAGE}>Detectar idioma</option> }
+    <Form.Select aria-label="Detect language" onChange={handleChange} value={value} bsPrefix="select-custom" size="lg">
+      { type === SectionType.From && <option value={AUTO_LANGUAGE}>Detect language</option> }
       {Object.entries(SUPPORTED_LANGUAGES).map(([key, literal]) => (
         <option key={key} value={key}>
           {literal}
