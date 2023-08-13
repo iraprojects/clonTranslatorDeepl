@@ -1,28 +1,27 @@
 import { useReducer } from 'react';
 import { Action, FromLanguage, Language, State } from '../types'
 import { AUTO_LANGUAGE } from '../constants';
-// 1° paso: crear stado inicial
+
 const initialState: State = {
   fromLanguage: 'auto',
-  toLanguage: 'EN-US',
+  toLanguage: 'EN-GB',
   fromText: '',
   result: '',
   loading: false
 }
 
-// 2° paso: crear un reducer, este recive un state y un action
 function reducer(state: State, action: Action) {
   const { type } = action;
   if (type === 'INTERCHANGE_LANGUAGES') {
 
-    // lógica del estado dentro del reducer, es util porque lo evitamos en los componentes
     if (state.fromLanguage === AUTO_LANGUAGE) return state
 
-    // un reducer siempre tiene que devolver un nuevo estado
     return {
       ...state,
       fromLanguage: state.toLanguage,
-      toLanguage: state.fromLanguage
+      toLanguage: state.fromLanguage,
+      fromText: state.result,
+      result: state.fromText
     }
   }
 
@@ -69,7 +68,6 @@ export function useStore() {
     loading
   }, dispatch] = useReducer(reducer, initialState)
 
-  // el dispatch no se tiene que ver en los componentes, para evitar esto, podemos crear un contrato que podamos utilizar en cualquier sitio
   const interChangeLanguages = () => {
     dispatch({ type: 'INTERCHANGE_LANGUAGES' })
   }
