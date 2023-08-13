@@ -1,7 +1,30 @@
 #root {
-  max-width: 1280px;
+  width: 70%;
   margin: 0 auto;
   padding: 2rem;
+  max-width: 90%;
 }
 
+.h1-title {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
 
+.select-custom {
+  font-size: x-large;
+  border-radius: 12px 12px 0 0;
+  width: 100%;
+  padding: 5px;
+  padding-inline-end: 3%;
+}
+
+@media only screen and (max-width: 900px) {
+  .row {
+    display: flex;
+    flex-direction: column;
+  }
+  .col-auto {
+    display: contents;
+  }
+}
