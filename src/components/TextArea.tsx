@@ -10,18 +10,22 @@ interface Props {
   value: string
 }
 
-const commonStyles = { border: 0, height: '100px', resize: 'none' as 'none' }
+const commonStyles = { 
+  border: 0, 
+  height: '100px', 
+  resize: 'none' as 'none',
+  'border-radius': '0 0 12px 12px',
+  background: '#f2f4ff',
+  'font-size': 'large'
+}
 
 const getPlaceHolder = ({type, loading}: {type: SectionType, loading?: boolean}) => {
-  if (type === SectionType.From) return 'Introducir texto'
-  if (loading === true) return 'Cargando...'
-  return 'Traduccion'
+  if (type === SectionType.From) return 'Type or paste'
+  if (loading === true) return 'Translating...'
+  return 'Translation'
 } 
 
 function TextArea({ type, loading, onChange, value }: Props) {
-  const styles = type === SectionType.From
-    ? commonStyles
-    : { ...commonStyles, backgroundColor: '#f1f3f9' }
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     onChange(event.target.value)
@@ -32,7 +36,7 @@ function TextArea({ type, loading, onChange, value }: Props) {
       autoFocus={type === SectionType.From}
       as='textarea'
       placeholder={getPlaceHolder({type, loading})}
-      style={styles}
+      style={commonStyles}
       value={value}
       onChange={handleChange}
     />
