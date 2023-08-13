@@ -8,39 +8,31 @@ import Head from './components/Head'
 import LanguageSelector from './components/LanguageSelector'
 import { SectionType } from './types.d'
 import TextArea from './components/TextArea';
+import { useTranslationEffect } from './hooks/useTranslationEffect';
 
 function App() {
-  const { loading, fromLanguage, toLanguage, interChangeLanguages, setFromLanguages, setFromText, setResult, fromText, result, setToLanguages } = useStore()
+  const { 
+    loading, 
+    fromLanguage, 
+    toLanguage, 
+    interChangeLanguages, 
+    setFromLanguages, 
+    setFromText, 
+    setResult, 
+    fromText, 
+    result, 
+    setToLanguages 
+  } = useStore()
 
-  const translateText = async () => {
-    try {
-      const response = await fetch('http://localhost:5000/translate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          text: fromText,
-          targetLang: toLanguage,
-        }),
-      });
-
-      const data = await response.json();
-      
-      setResult(data.translation);
-    } catch (error) {
-      console.error('Translation error:', error);
-    }
-  };
+  useTranslationEffect(fromText, toLanguage, fromLanguage, setResult)
 
   return (
     <>
       <Head />
       <Container fluid>
-        <h1>Google Translate</h1>
+        <h1 className='h1-title'>Deepl Translator</h1>
         <Row>
           <Col>
-            <h2>From</h2>
             <LanguageSelector
               type={SectionType.From}
               value={fromLanguage}
@@ -58,24 +50,19 @@ function App() {
             </Button>
           </Col>
           <Col>
-            <h2>To</h2>
             <LanguageSelector
               type={SectionType.To}
               value={toLanguage}
               onChange={setToLanguages}
             />
             <TextArea
-              placeholder='Traducción'
+              placeholder='Type, paste, or translate'
               type={SectionType.To}
               value={result}
               loading={loading}
               onChange={setResult}
             />
           </Col>
-          <Col xs='auto'>
-            <Button variant='primary' onClick={translateText}>Translate</Button>
-          </Col>
-          <Col></Col>
         </Row>
       </Container>
     </>
