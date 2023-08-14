@@ -2,18 +2,26 @@
   "version": 2,
   "builds": [
     {
-      "src": "index.html",
-      "use": "@vercel/static"
+      "src": "backend/server.js",
+      "use": "@vercel/node"
     },
     {
-      "src": "./backend/server.js", 
-      "use": "@vercel/node"
+      "src": "src/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
+      "src": "/translate",
+      "dest": "backend/server.js"
+    },
+    {
+      "src": "/(index\\.html)",
+      "dest": "/$1"
+    },
+    {
       "src": "/(.*)",
-      "dest": "index.html"
+      "dest": "/src/$1"
     }
   ]
 }
