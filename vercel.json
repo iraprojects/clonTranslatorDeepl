@@ -16,10 +16,6 @@
       "dest": "backend/$1"
     },
     {
-      "src": "(/_next/.*", 
-      "dest": "./$1"
-    },
-    {
       "src": "/(.*)",
       "dest": "./index.html"
     }
