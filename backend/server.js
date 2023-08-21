@@ -8,6 +8,10 @@ app.use(cors())
 
 const DEEPL_API_KEY = process.env.DEEPL_API_KEY
 
+app.get('/', (req, res) => {
+  res.send('Backend is running successfully!')
+})
+
 app.post('/translate', async (req, res) => {
   const { text, targetLang, sourceLang } = req.body;
 
