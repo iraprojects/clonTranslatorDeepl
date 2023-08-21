@@ -12,16 +12,12 @@
   ],
   "routes": [
     {
-      "src": "/translate",
+      "src": "/(.*)",
       "dest": "backend/server.js"
     },
     {
-      "src": "/(index\\.html)",
-      "dest": "/$1"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/src/$1"
+      "dest": "src/**"
     }
   ]
 }
