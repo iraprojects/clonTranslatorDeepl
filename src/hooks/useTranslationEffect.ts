@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Language, AutoLanguage } from '../types.d';
+import axios from 'axios';
 
 export function useTranslationEffect(
   fromText: string,
@@ -20,18 +21,24 @@ export function useTranslationEffect(
   }, [fromText]);
 
   useEffect(() => {
-    const DEEPL_API_KEY = process.env.DEEPL_API_KEY
     const translateText = async () => {
       try {
-        const response = await fetch(`https://api-free.deepl.com/v2/translate?auth_key=${DEEPL_API_KEY}&text=${encodeURIComponent(debouncedFromText)}&target_lang=${toLanguage}&source_lang=${fromLanguage}`);
+        const response = await axios.post(
+          '/api/translate',
+          {
+            text: debouncedFromText,
+            targetLang: toLanguage,
+            ...(fromLanguage !== 'auto' ? { sourceLang: fromLanguage } : {}),
+          }
+        );
 
-        const data = await response.json();
-        setResult(data.translations[0].text);
+        const data = response.data;
+        setResult(data.translation);
       } catch (error) {
         console.error('Translation error:', error);
       }
     };
-    
+
     translateText();
   }, [debouncedFromText, fromLanguage, toLanguage]);
 }
