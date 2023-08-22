@@ -6,7 +6,7 @@ export function useTranslationEffect(
   toLanguage: Language,
   fromLanguage: Language | AutoLanguage,
   setResult: (payload: string) => void
-) {
+){
   const [debouncedFromText, setDebouncedFromText] = useState('');
 
   useEffect(() => {
@@ -20,22 +20,10 @@ export function useTranslationEffect(
   }, [fromText]);
 
   useEffect(() => {
+    const apiKey = process.env.REACT_APP_DEEPL_API_KEY
     const translateText = async () => {
       try {
-        const apiKey = process.env.NEXT_PUBLIC_REACT_APP_DEEPL_API_KEY;
-
-        const response = await fetch('https://api-free.deepl.com/v2/translate', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `DeepL-Auth-Key ${apiKey}`,
-          },
-          body: JSON.stringify({
-            text: debouncedFromText,
-            target_lang: toLanguage,
-            ...(fromLanguage !== 'auto' ? { source_lang: fromLanguage } : {}),
-          }),
-        });
+        const response = await fetch(`https://api-free.deepl.com/v2/translate?auth_key=${apiKey}&text=${encodeURIComponent(debouncedFromText)}&target_lang=${toLanguage}&source_lang=${fromLanguage}`);
 
         const data = await response.json();
         setResult(data.translations[0].text);
@@ -43,6 +31,7 @@ export function useTranslationEffect(
         console.error('Translation error:', error);
       }
     };
-    translateText()
+    
+    translateText();
   }, [debouncedFromText, fromLanguage, toLanguage]);
 }
