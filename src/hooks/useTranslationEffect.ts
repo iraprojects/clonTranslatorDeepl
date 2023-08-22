@@ -24,7 +24,7 @@ export function useTranslationEffect(
     const translateText = async () => {
       try {
         const response = await axios.post(
-          '/api/translate',
+          'https://clon-translator-deepl.vercel.app/api/translate',
           {
             text: debouncedFromText,
             targetLang: toLanguage,
