@@ -10,27 +10,23 @@ export default async function handler(req, res) {
   const { text, targetLang, sourceLang } = req.body;
 
   try {
-    const response = await axios.post(
-      'https://api-free.deepl.com/v2/translate',
-      {
-        text: text,
-        target_lang: targetLang,
-        ...(sourceLang !== 'auto' ? { source_lang: sourceLang } : {}),
+    const response = await fetch('https://api-free.deepl.com/v2/translate', {
+      method: 'POST',
+      headers: {
+        'Authorization': `DeepL-Auth-Key ${DEEPL_API_KEY}`,
+        'Content-Type': 'application/json',
       },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        params: {
-          auth_key: process.env.DEEPL_API_KEY,
-        },
-      }
-    );
+      body: JSON.stringify({
+        text: [text],
+        target_lang: targetLang,
+        ...(sourceLang !== 'auto' ? {source_lang: sourceLang} : {})
+      }),
+    });
 
-    const data = response.data;
-    res.json({ translation: data.translations[0].text });
+    const data = await response.json();
+    const translation = data.translations[0].text;
+    res.json({ translation });
   } catch (error) {
-    console.error('Translation error:', error);
     res.status(500).json({ error: 'Translation failed' });
   }
 }
