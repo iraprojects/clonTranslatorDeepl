@@ -4,7 +4,15 @@ require('dotenv').config()
 
 const app = express()
 app.use(express.json())
-app.use(cors())
+
+const corsOptions = {
+  origin: 'https://clon-translator-deepl.vercel.app',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions))
 
 const DEEPL_API_KEY = process.env.DEEPL_API_KEY
 

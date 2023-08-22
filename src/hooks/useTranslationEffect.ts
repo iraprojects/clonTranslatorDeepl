@@ -24,7 +24,7 @@ export function useTranslationEffect(
     
     const translateText = async () => {
       try {
-        const response = await fetch('URL', {
+        const response = await fetch('https://api-translator-deelp-backend.onrender.com/translate', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
