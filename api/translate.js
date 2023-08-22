@@ -1,6 +1,4 @@
-const axios = require('axios');
-const cors = require('cors')
-app.use(cors())
+const DEEPL_API_KEY = process.env.DEEPL_API_KEY
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
