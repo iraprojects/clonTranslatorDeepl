@@ -20,10 +20,10 @@ export function useTranslationEffect(
   }, [fromText]);
 
   useEffect(() => {
-    const apiKey = process.env.REACT_APP_DEEPL_API_KEY
+    const DEEPL_API_KEY = process.env.DEEPL_API_KEY
     const translateText = async () => {
       try {
-        const response = await fetch(`https://api-free.deepl.com/v2/translate?auth_key=${apiKey}&text=${encodeURIComponent(debouncedFromText)}&target_lang=${toLanguage}&source_lang=${fromLanguage}`);
+        const response = await fetch(`https://api-free.deepl.com/v2/translate?auth_key=${DEEPL_API_KEY}&text=${encodeURIComponent(debouncedFromText)}&target_lang=${toLanguage}&source_lang=${fromLanguage}`);
 
         const data = await response.json();
         setResult(data.translations[0].text);
